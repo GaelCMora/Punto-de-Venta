@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instrucciones - Punto de Venta PWA</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            line-height: 1.6;
+            background-color: #f9fafb;
+        }
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #4F46E5;
+            border-bottom: 3px solid #4F46E5;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #374151;
+            margin-top: 30px;
+        }
+        .step {
+            background: #f3f4f6;
+            padding: 20px;
+            margin: 15px 0;
+            border-left: 4px solid #4F46E5;
+            border-radius: 4px;
+        }
+        .step h3 {
+            margin-top: 0;
+            color: #4F46E5;
+        }
+        code {
+            background: #1f2937;
+            color: #10b981;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+        }
+        .warning {
+            background: #fef3c7;
+            border-left: 4px solid #f59e0b;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        .success {
+            background: #d1fae5;
+            border-left: 4px solid #10b981;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        .button {
+            display: inline-block;
+            background: #4F46E5;
+            color: white;
+            padding: 12px 24px;
+            text-decoration: none;
+            border-radius: 8px;
+            margin: 10px 10px 10px 0;
+            transition: background 0.2s;
+        }
+        .button:hover {
+            background: #4338CA;
+        }
+        ul {
+            margin-left: 20px;
+        }
+        li {
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📱 Instrucciones - Punto de Venta PWA</h1>
+        
+        <div class="success">
+            <strong>✅ ¡Tu aplicación está lista!</strong> Solo necesitas generar los iconos y ya podrás usarla.
+        </div>
+
+        <h2>🚀 Inicio Rápido</h2>
+        
+        <div class="step">
+            <h3>Paso 1: Generar Iconos</h3>
+            <p>Elige uno de estos métodos:</p>
+            <ul>
+                <li>
+                    <strong>Método 1 (Más fácil):</strong> 
+                    <ol>
+                        <li>Abre <code>generate-icons.html</code> en tu navegador</li>
+                        <li>Haz clic en "Generar y Descargar Iconos"</li>
+                        <li>Mueve todos los archivos descargados a la carpeta <code>icons/</code></li>
+                    </ol>
+                </li>
+                <li>
+                    <strong>Método 2 (Con Python):</strong>
+                    <ol>
+                        <li>Instala Pillow: <code>pip install pillow</code></li>
+                        <li>Ejecuta: <code>python generate_icons.py</code></li>
+                    </ol>
+                </li>
+                <li>
+                    <strong>Método 3 (Manual):</strong>
+                    <ul>
+                        <li>Crea imágenes PNG de 512x512 con tu diseño</li>
+                        <li>Usa herramientas online para generar los diferentes tamaños</li>
+                        <li>Guárdalas en la carpeta <code>icons/</code></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+        <div class="step">
+            <h3>Paso 2: Iniciar la Aplicación</h3>
+            <p>Opciones para ejecutar:</p>
+            <ul>
+                <li>
+                    <strong>Opción A - Servidor local simple:</strong><br>
+                    Si tienes Python instalado:<br>
+                    <code>python -m http.server 8000</code><br>
+                    Luego abre <code>http://localhost:8000</code>
+                </li>
+                <li>
+                    <strong>Opción B - Extensión Live Server (VS Code):</strong><br>
+                    Instala "Live Server" en VS Code y haz clic derecho en <code>index.html</code> → "Open with Live Server"
+                </li>
+                <li>
+                    <strong>Opción C - Directamente:</strong><br>
+                    Abre <code>index.html</code> directamente en tu navegador (algunas funciones PWA no estarán disponibles)
+                </li>
+            </ul>
+        </div>
+
+        <div class="step">
+            <h3>Paso 3: Instalar como PWA</h3>
+            <p><strong>En Móvil (Android/iOS):</strong></p>
+            <ul>
+                <li>Abre la app en Chrome/Safari</li>
+                <li>Toca el menú (⋮ o compartir)</li>
+                <li>Selecciona "Agregar a pantalla de inicio"</li>
+                <li>¡Listo! Ya tienes la app instalada</li>
+            </ul>
+            <p><strong>En Escritorio (Chrome/Edge):</strong></p>
+            <ul>
+                <li>Busca el icono de instalación en la barra de direcciones (⊕)</li>
+                <li>Haz clic en "Instalar"</li>
+                <li>La app se abrirá como aplicación independiente</li>
+            </ul>
+        </div>
+
+        <h2>📋 Características Principales</h2>
+        
+        <div class="step">
+            <h3>💰 Punto de Venta</h3>
+            <ul>
+                <li>Búsqueda rápida de productos</li>
+                <li>Carrito de compras interactivo</li>
+                <li>Sistema de descuentos</li>
+                <li>Múltiples métodos de pago</li>
+                <li>Cálculo automático de cambio</li>
+            </ul>
+        </div>
+
+        <div class="step">
+            <h3>📦 Gestión de Productos</h3>
+            <ul>
+                <li>Agregar/editar/eliminar productos</li>
+                <li>Categorías personalizables</li>
+                <li>Control de stock</li>
+                <li>Códigos únicos</li>
+            </ul>
+        </div>
+
+        <div class="step">
+            <h3>📊 Control de Gastos</h3>
+            <ul>
+                <li>Registro de gastos categorizados</li>
+                <li>Seguimiento temporal (día/semana/mes)</li>
+                <li>Notas y detalles</li>
+            </ul>
+        </div>
+
+        <div class="step">
+            <h3>📈 Reportes</h3>
+            <ul>
+                <li>Ventas totales</li>
+                <li>Gastos totales</li>
+                <li>Ganancia neta y margen</li>
+                <li>Productos más vendidos</li>
+                <li>Filtros por fecha</li>
+            </ul>
+        </div>
+
+        <h2>💡 Consejos de Uso</h2>
+        
+        <div class="warning">
+            <strong>⚠️ Importante:</strong>
+            <ul>
+                <li>Los datos se guardan en el navegador (LocalStorage)</li>
+                <li>No borres los datos del navegador o perderás la información</li>
+                <li>Haz respaldos periódicos exportando tus datos</li>
+                <li>La app funciona offline después de la primera carga</li>
+            </ul>
+        </div>
+
+        <div class="step">
+            <h3>🎨 Personalización</h3>
+            <ul>
+                <li>Tema claro/oscuro disponible (botón 🌙/☀️)</li>
+                <li>Edita <code>styles.css</code> para cambiar colores</li>
+                <li>Modifica categorías en el código según tu negocio</li>
+            </ul>
+        </div>
+
+        <h2>🔧 Solución de Problemas</h2>
+        
+        <div class="step">
+            <h3>La PWA no se instala</h3>
+            <ul>
+                <li>Verifica que estés usando HTTPS o localhost</li>
+                <li>Asegúrate de que los iconos estén en la carpeta <code>icons/</code></li>
+                <li>Revisa que el archivo <code>manifest.json</code> sea accesible</li>
+                <li>Limpia la caché del navegador e intenta de nuevo</li>
+            </ul>
+        </div>
+
+        <div class="step">
+            <h3>Los productos no se guardan</h3>
+            <ul>
+                <li>Verifica que LocalStorage esté habilitado en tu navegador</li>
+                <li>No uses modo incógnito/privado</li>
+                <li>Asegúrate de no limpiar datos al cerrar el navegador</li>
+            </ul>
+        </div>
+
+        <div class="step">
+            <h3>No funciona offline</h3>
+            <ul>
+                <li>La primera vez debes cargar la app con internet</li>
+                <li>Verifica que el Service Worker esté registrado (Consola del navegador)</li>
+                <li>Usa un servidor local, no file:// directamente</li>
+            </ul>
+        </div>
+
+        <h2>📱 Enlaces Útiles</h2>
+        <a href="index.html" class="button">🚀 Abrir Aplicación</a>
+        <a href="generate-icons.html" class="button">🎨 Generar Iconos</a>
+        <a href="README.md" class="button">📖 Documentación</a>
+
+        <div class="success" style="margin-top: 40px;">
+            <strong>✨ ¡Disfruta tu nuevo Punto de Venta!</strong><br>
+            Si tienes dudas o sugerencias, revisa el código fuente o personalízalo según tus necesidades.
+        </div>
+    </div>
+</body>
+</html>

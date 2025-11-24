@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generador de Iconos PWA</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            text-align: center;
+        }
+        canvas {
+            border: 1px solid #ddd;
+            margin: 20px 0;
+        }
+        button {
+            background-color: #4F46E5;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 10px;
+        }
+        button:hover {
+            background-color: #4338CA;
+        }
+        .icon-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+        .icon-item {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+        .icon-item img {
+            width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>Generador de Iconos PWA</h1>
+    <p>Haz clic en el botón para generar y descargar todos los iconos necesarios para la PWA</p>
+    
+    <canvas id="canvas" width="512" height="512" style="display: none;"></canvas>
+    
+    <button onclick="generateAllIcons()">Generar y Descargar Iconos</button>
+    
+    <div id="iconList" class="icon-list"></div>
+
+    <script>
+        const sizes = [72, 96, 128, 144, 152, 192, 384, 512];
+
+        function drawIcon(ctx, size) {
+            // Fondo degradado
+            const gradient = ctx.createLinearGradient(0, 0, size, size);
+            gradient.addColorStop(0, '#4F46E5');
+            gradient.addColorStop(1, '#7C3AED');
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, size, size);
+
+            // Ícono de carrito de compras
+            ctx.fillStyle = '#FFFFFF';
+            ctx.font = `bold ${size * 0.5}px Arial`;
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText('🛒', size / 2, size / 2);
+
+            // Borde redondeado (opcional)
+            ctx.strokeStyle = 'rgba(255, 255, 255, 0.2)';
+            ctx.lineWidth = size * 0.02;
+            ctx.strokeRect(size * 0.05, size * 0.05, size * 0.9, size * 0.9);
+        }
+
+        function generateIcon(size) {
+            const canvas = document.getElementById('canvas');
+            canvas.width = size;
+            canvas.height = size;
+            const ctx = canvas.getContext('2d');
+
+            drawIcon(ctx, size);
+
+            return canvas.toDataURL('image/png');
+        }
+
+        function downloadIcon(dataUrl, filename) {
+            const link = document.createElement('a');
+            link.download = filename;
+            link.href = dataUrl;
+            link.click();
+        }
+
+        function generateAllIcons() {
+            const iconList = document.getElementById('iconList');
+            iconList.innerHTML = '<h2>Iconos Generados</h2>';
+
+            sizes.forEach(size => {
+                const dataUrl = generateIcon(size);
+                const filename = `icon-${size}x${size}.png`;
+
+                // Descargar
+                downloadIcon(dataUrl, filename);
+
+                // Mostrar preview
+                const iconItem = document.createElement('div');
+                iconItem.className = 'icon-item';
+                iconItem.innerHTML = `
+                    <img src="${dataUrl}" alt="${filename}">
+                    <p>${size}x${size}</p>
+                `;
+                iconList.appendChild(iconItem);
+            });
+
+            alert('¡Iconos generados! Revisa tus descargas y muévelos a la carpeta "icons"');
+        }
+
+        // Generar preview inicial
+        window.onload = function() {
+            const canvas = document.getElementById('canvas');
+            canvas.style.display = 'block';
+            canvas.width = 512;
+            canvas.height = 512;
+            const ctx = canvas.getContext('2d');
+            drawIcon(ctx, 512);
+        };
+    </script>
+</body>
+</html>

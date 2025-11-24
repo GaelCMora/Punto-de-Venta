@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Punto de Venta - Sistema de gestión de ventas">
+    <meta name="theme-color" content="#4F46E5">
+    <title>Punto de Venta</title>
+    <link rel="manifest" href="manifest.json">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="apple-touch-icon" href="icons/icon-192x192.png">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <h1 class="logo">🛒 Punto de Venta</h1>
+                <div class="user-info" id="userInfo" style="flex: 1; margin-left: 20px;">
+                    <span id="businessName" style="color: var(--text-secondary); font-size: 0.875rem;"></span>
+                </div>
+                <div class="header-actions">
+                    <button class="btn-icon" id="toggleTheme" title="Cambiar tema">
+                        🌙
+                    </button>
+                    <button class="btn-icon" id="logoutBtn" title="Cerrar sesión">
+                        🚪
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Navigation -->
+        <nav class="nav-tabs" id="navTabs">
+            <button class="nav-tab active" data-tab="venta">
+                <span class="nav-icon">💰</span>
+                <span class="nav-label">Venta</span>
+            </button>
+            <button class="nav-tab" data-tab="productos">
+                <span class="nav-icon">📦</span>
+                <span class="nav-label">Productos</span>
+            </button>
+            <button class="nav-tab" data-tab="gastos">
+                <span class="nav-icon">📊</span>
+                <span class="nav-label">Gastos</span>
+            </button>
+            <button class="nav-tab" data-tab="reportes">
+                <span class="nav-icon">📈</span>
+                <span class="nav-label">Reportes</span>
+            </button>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Sección de Venta -->
+            <section class="tab-content active" id="venta">
+                <div class="sale-container">
+                    <div class="sale-left">
+                        <!-- Buscador de productos -->
+                        <div class="search-section">
+                            <div class="search-box">
+                                <input type="text" id="searchProduct" placeholder="Buscar producto por nombre o código..." class="search-input">
+                                <button class="btn-search" id="searchBtn">🔍</button>
+                            </div>
+                            <button class="btn-primary" id="addProductBtn">+ Producto Rápido</button>
+                        </div>
+
+                        <!-- Categorías rápidas -->
+                        <div class="categories-section">
+                            <h3>Categorías</h3>
+                            <div class="categories-grid" id="categoriesGrid">
+                                <button class="category-btn active" data-category="todos">Todos</button>
+                                <button class="category-btn" data-category="bebidas">Bebidas</button>
+                                <button class="category-btn" data-category="comida">Comida</button>
+                                <button class="category-btn" data-category="postres">Postres</button>
+                                <button class="category-btn" data-category="otros">Otros</button>
+                            </div>
+                        </div>
+
+                        <!-- Lista de productos -->
+                        <div class="products-grid" id="productsGrid">
+                            <!-- Los productos se cargarán dinámicamente -->
+                        </div>
+                    </div>
+
+                    <div class="sale-right">
+                        <div class="cart-container">
+                            <h2>Carrito de Venta</h2>
+                            
+                            <!-- Items del carrito -->
+                            <div class="cart-items" id="cartItems">
+                                <div class="empty-cart">
+                                    <p>🛒 Carrito vacío</p>
+                                    <small>Agrega productos para comenzar la venta</small>
+                                </div>
+                            </div>
+
+                            <!-- Resumen -->
+                            <div class="cart-summary">
+                                <div class="summary-row">
+                                    <span>Subtotal:</span>
+                                    <span id="subtotal">$0.00</span>
+                                </div>
+                                <div class="summary-row">
+                                    <span>Descuento:</span>
+                                    <div class="discount-input">
+                                        <input type="number" id="discountInput" value="0" min="0" max="100" step="1">
+                                        <span>%</span>
+                                    </div>
+                                </div>
+                                <div class="summary-row total-row">
+                                    <span>Total:</span>
+                                    <span id="total">$0.00</span>
+                                </div>
+                            </div>
+
+                            <!-- Acciones -->
+                            <div class="cart-actions">
+                                <button class="btn-secondary" id="clearCartBtn">Limpiar</button>
+                                <button class="btn-success" id="checkoutBtn">Cobrar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Sección de Productos -->
+            <section class="tab-content" id="productos">
+                <div class="section-header">
+                    <h2>Gestión de Productos</h2>
+                    <button class="btn-primary" id="newProductBtn">+ Nuevo Producto</button>
+                </div>
+
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Código</th>
+                                <th>Nombre</th>
+                                <th>Categoría</th>
+                                <th>Precio</th>
+                                <th>Stock</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="productsTable">
+                            <!-- Los productos se cargarán dinámicamente -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Sección de Gastos -->
+            <section class="tab-content" id="gastos">
+                <div class="section-header">
+                    <h2>Registro de Gastos</h2>
+                    <button class="btn-primary" id="newExpenseBtn">+ Nuevo Gasto</button>
+                </div>
+
+                <div class="expenses-summary">
+                    <div class="summary-card">
+                        <h3>Hoy</h3>
+                        <p class="summary-amount" id="expensesToday">$0.00</p>
+                    </div>
+                    <div class="summary-card">
+                        <h3>Esta Semana</h3>
+                        <p class="summary-amount" id="expensesWeek">$0.00</p>
+                    </div>
+                    <div class="summary-card">
+                        <h3>Este Mes</h3>
+                        <p class="summary-amount" id="expensesMonth">$0.00</p>
+                    </div>
+                </div>
+
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Fecha</th>
+                                <th>Concepto</th>
+                                <th>Categoría</th>
+                                <th>Monto</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="expensesTable">
+                            <!-- Los gastos se cargarán dinámicamente -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Sección de Reportes -->
+            <section class="tab-content" id="reportes">
+                <div class="section-header">
+                    <h2>Reportes y Estadísticas</h2>
+                    <div class="date-filter">
+                        <input type="date" id="startDate" class="date-input">
+                        <span>a</span>
+                        <input type="date" id="endDate" class="date-input">
+                        <button class="btn-primary" id="filterReportBtn">Filtrar</button>
+                    </div>
+                </div>
+
+                <div class="reports-summary">
+                    <div class="report-card">
+                        <div class="report-icon">💰</div>
+                        <div class="report-info">
+                            <h3>Ventas Totales</h3>
+                            <p class="report-amount" id="totalSales">$0.00</p>
+                            <small id="salesCount">0 ventas</small>
+                        </div>
+                    </div>
+                    <div class="report-card">
+                        <div class="report-icon">📊</div>
+                        <div class="report-info">
+                            <h3>Gastos Totales</h3>
+                            <p class="report-amount expense" id="totalExpenses">$0.00</p>
+                            <small id="expensesCount">0 gastos</small>
+                        </div>
+                    </div>
+                    <div class="report-card">
+                        <div class="report-icon">📈</div>
+                        <div class="report-info">
+                            <h3>Ganancia Neta</h3>
+                            <p class="report-amount profit" id="netProfit">$0.00</p>
+                            <small id="profitMargin">0% margen</small>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="charts-container">
+                    <div class="chart-box">
+                        <h3>Ventas por Día</h3>
+                        <canvas id="salesChart"></canvas>
+                    </div>
+                    <div class="chart-box">
+                        <h3>Productos Más Vendidos</h3>
+                        <div id="topProducts" class="top-products-list"></div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Modal para agregar/editar producto -->
+    <div class="modal" id="productModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="productModalTitle">Nuevo Producto</h2>
+                <button class="modal-close" id="closeProductModal">&times;</button>
+            </div>
+            <form id="productForm">
+                <div class="form-group">
+                    <label for="productCode">Código</label>
+                    <input type="text" id="productCode" required>
+                </div>
+                <div class="form-group">
+                    <label for="productName">Nombre</label>
+                    <input type="text" id="productName" required>
+                </div>
+                <div class="form-group">
+                    <label for="productCategory">Categoría</label>
+                    <select id="productCategory" required>
+                        <option value="bebidas">Bebidas</option>
+                        <option value="comida">Comida</option>
+                        <option value="postres">Postres</option>
+                        <option value="otros">Otros</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="productPrice">Precio</label>
+                    <input type="number" id="productPrice" step="0.01" min="0" required>
+                </div>
+                <div class="form-group">
+                    <label for="productStock">Stock</label>
+                    <input type="number" id="productStock" min="0" value="0">
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn-secondary" id="cancelProductBtn">Cancelar</button>
+                    <button type="submit" class="btn-primary">Guardar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal para agregar gasto -->
+    <div class="modal" id="expenseModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Nuevo Gasto</h2>
+                <button class="modal-close" id="closeExpenseModal">&times;</button>
+            </div>
+            <form id="expenseForm">
+                <div class="form-group">
+                    <label for="expenseConcept">Concepto</label>
+                    <input type="text" id="expenseConcept" required>
+                </div>
+                <div class="form-group">
+                    <label for="expenseCategory">Categoría</label>
+                    <select id="expenseCategory" required>
+                        <option value="compras">Compras/Inventario</option>
+                        <option value="servicios">Servicios</option>
+                        <option value="empleados">Empleados</option>
+                        <option value="mantenimiento">Mantenimiento</option>
+                        <option value="otros">Otros</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="expenseAmount">Monto</label>
+                    <input type="number" id="expenseAmount" step="0.01" min="0" required>
+                </div>
+                <div class="form-group">
+                    <label for="expenseDate">Fecha</label>
+                    <input type="date" id="expenseDate" required>
+                </div>
+                <div class="form-group">
+                    <label for="expenseNotes">Notas (opcional)</label>
+                    <textarea id="expenseNotes" rows="3"></textarea>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn-secondary" id="cancelExpenseBtn">Cancelar</button>
+                    <button type="submit" class="btn-primary">Guardar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal de pago -->
+    <div class="modal" id="checkoutModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Procesar Pago</h2>
+                <button class="modal-close" id="closeCheckoutModal">&times;</button>
+            </div>
+            <div class="checkout-summary">
+                <div class="checkout-total">
+                    <span>Total a Pagar:</span>
+                    <span id="checkoutTotal" class="checkout-amount">$0.00</span>
+                </div>
+            </div>
+            <form id="checkoutForm">
+                <div class="form-group">
+                    <label for="paymentMethod">Método de Pago</label>
+                    <select id="paymentMethod" required>
+                        <option value="efectivo">Efectivo</option>
+                        <option value="tarjeta">Tarjeta</option>
+                        <option value="transferencia">Transferencia</option>
+                    </select>
+                </div>
+                <div class="form-group" id="cashGroup">
+                    <label for="cashReceived">Efectivo Recibido</label>
+                    <input type="number" id="cashReceived" step="0.01" min="0">
+                    <div class="change-display">
+                        <span>Cambio:</span>
+                        <span id="changeAmount">$0.00</span>
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn-secondary" id="cancelCheckoutBtn">Cancelar</button>
+                    <button type="submit" class="btn-success">Completar Venta</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="supabase.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
