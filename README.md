@@ -105,4 +105,4 @@ Una Progressive Web App (PWA) completa para gestión de ventas, productos y gast
 
 ## Autor
 
-Sistema de Punto de Venta - 2025
+Gael Mora
